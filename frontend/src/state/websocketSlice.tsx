@@ -1,7 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dispatch, GetState } from "./store";
-import { selectFile } from "#/services/fileService";
-import { loadFiles, removeFile, setActiveFilepath, setCode } from "./codeSlice";
 import Session from "#/services/session";
 import { WS_URL } from "#/services/api";
 
@@ -32,35 +30,13 @@ export const selectActiveWebsocket = createSelector(
 
 // need the type
 export const consumeLatestMessage =
-  (message: any[]) => async (dispatch: Dispatch, getState: GetState) => {
+  (message) => async (dispatch: Dispatch, getState: GetState) => {
+    // the current active filepath that is opened
     const activeFilepath = getState().code.path;
 
     message.forEach(async (msg) => {
-      const editedPath = msg.path.split("home/runner/File-System-Backend/")[1];
-
-      // there is a bug in the backend where
-      // the "modified" status is being sent as created
-      // so we should handle it here by checking if the edited filepath is the current filepath...
-      if (msg.status === "created") {
-        const isActiveFilepath = activeFilepath === editedPath;
-        if (isActiveFilepath) {
-          // update the file in the directory
-          const newCode = await selectFile(activeFilepath);
-          dispatch(setCode(newCode));
-        } else {
-          // update the files fro the right directory...
-          const folder = editedPath.split("/").slice(0, -1).join("/");
-          dispatch(loadFiles(folder, false));
-        }
-      }
-
-      if (msg.status === "deleted") {
-        // update the files fro the right directory...
-        dispatch(removeFile(editedPath));
-        if (activeFilepath === editedPath) {
-          dispatch(setActiveFilepath(""));
-        }
-      }
+      // TO-DO (PROBLEM #2)
+      // handle file updates in real-time
     });
   };
 
@@ -72,7 +48,6 @@ export const startWebsocket =
       activeWebsocket?.close?.();
     }
 
-    // TO-DO: NEED TO UPDATE THIS WITH THE PROPER URL
     const newFileWebsocket = new Session(
       `${WS_URL}/fs/update_stream/`,
       (message) => dispatch(consumeLatestMessage(message)),

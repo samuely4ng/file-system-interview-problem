@@ -39,7 +39,7 @@ function CodeEditor(): JSX.Element {
     editor.updateOptions({
       readOnly: true,
       readOnlyMessage: {
-        value: "[Edit in VSCode Browser](https://www.google.com)", // TO-DO: REPLACE WITH VSCODE LINK
+        value: "[Edit in VSCode Browser](https://www.google.com)",
         isTrusted: true,
         supportHtml: true,
       },

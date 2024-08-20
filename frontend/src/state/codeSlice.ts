@@ -13,7 +13,17 @@ export interface File {
   parent?: string;
 }
 
-export const initialState = {
+// files is a map of path to File objects
+// study the File interface above
+// to determine how to implement this
+
+interface InitialState {
+  code: string;
+  path: string;
+  files: Record<string, File>;
+}
+
+export const initialState: InitialState = {
   code: "",
   path: "",
   files: {},
@@ -69,52 +79,32 @@ export const selectRootFiles = createSelector(
   (files) => Object.values(files).filter((file: File) => !file.parent),
 );
 
+// HINT: You may want to implement & use this function in the loadFiles function
 const processFolder = async (
   path: string,
-  files: Object,
+  files: Record<string, File>,
   loadMore: boolean = true,
 ) => {
   const children = await listFiles(path);
 
-  // Process folders
-  children?.forEach(async (child: File) => {
-    if (path?.length > 0) {
-      child.parent = path;
-
-      if (!files[path].children?.includes(child.path)) {
-        files[path] = {
-          ...files[path],
-          children: [...(files[path].children || []), child.path],
-        };
-      }
-    }
-
-    files[child.path] = { ...(files[child.path] || {}), ...child };
-
-    // Recursively process child folders
-    if (
-      child?.is_dir &&
-      files[child.path]?.isOpen &&
-      child.path !== path &&
-      loadMore
-    ) {
-      await processFolder(child.path, files); // Recursive call
-    }
-  });
+  // TO-DO:
+  // Implement this
 };
 
 // loads the files in a particular path into redux
 export const loadFiles =
   (startPath: string = "", loadMore: boolean = true) =>
   async (dispatch: Dispatch, getState: GetState) => {
+    // THE CURRENT FILES (you may need to use this)
     const currFiles = { ...(getState().code.files || {}) };
 
     try {
-      // Start with the start path
-      await processFolder(startPath, currFiles, loadMore);
-
-      // Dispatch success action
-      dispatch(setFiles(currFiles));
+      // TO-DO (PROBLEM #1)
+      // LOAD THE FILES AND FOLDERS INTO THE REDUX STORE
+      // Use the listFiles function from the fileService to get the files and folders
+      // And then transform the data into the format
+      // described in the File interface above
+      // You may want to implement & use the processFolder function
     } catch (error) {
       // Handle error
       console.error("Failed to load files and folders", error);

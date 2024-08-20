@@ -23,9 +23,6 @@ function FileExplorer() {
 
   const activeFilepath = useSelector(selectActiveFilepath);
 
-  // TO-DO:
-  // DEAL WITH IMAGES??
-
   const selectFileInput = () => {
     fileInputRef.current?.click(); // Trigger the file browser
   };

@@ -53,7 +53,6 @@ function TreeNode({ path }: TreeNodeProps) {
     if (!isDirectory || !isOpen) {
       return;
     }
-    // TO-DO: ADD SESSION ID
     dispatch(loadFiles(path));
   };
 
