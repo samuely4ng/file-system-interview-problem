@@ -1,0 +1,173 @@
+:root {
+  --bg-dark: #0c0e10;
+  --bg-light: #292929;
+  --bg-input: #393939;
+  --bg-workspace: #1f2228;
+  --border: #3c3c4a;
+  --text-editor-active:#C4CBDA;
+  --bg-editor-sidebar: #24272E;
+  --bg-editor-active: #31343D;
+  --border-editor-sidebar: #3C3C4A;
+  background-color: #111115;
+  --bg-neutral-muted: #afb8c133;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/assets/GraphikRegular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/assets/GraphikThin.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/assets/GraphikMedium.otf") format("opentype");
+  font-weight: bold;
+}
+
+
+body {
+  margin: 0;
+  font-family: Graphik, -apple-system, "SF Pro", BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  letter-spacing: 2%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.markdown-body code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: var(--bg-neutral-muted);
+  border-radius: 6px;
+}
+
+.markdown-body pre code {
+  padding: 0;
+  background-color: inherit;
+}
+
+@keyframes pinging {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.loader {
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite
+}
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 3px solid #FFF;
+  animation: prixClipFix 2s linear infinite ;
+}
+
+@keyframes rotate {
+  100%   {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
+
+@keyframes pinging {
+  75%, 100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.animate-pinging {
+  -webkit-animation: pinging 1.5s infinite;
+          animation: pinging 1.5s infinite;
+}
+
+.animate-pinging-2 {
+  -webkit-animation: pinging 1.5s infinite 0.3s;
+          animation: pinging 1.5s infinite 0.3s;
+}
+
+.animate-pinging-3 {
+  -webkit-animation: pinging 1.5s infinite 0.6s;
+          animation: pinging 1.5s infinite 0.6s;
+
+}
+
+button {
+  transition-duration: 300ms;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+.sidebar-hidden {
+  opacity: 0;
+}
+
+.sidebar-hidden-container {
+  margin-left: -184px;
+}
+
+.note .three-dot-menu {
+  display: none;
+}
+
+.note:hover .three-dot-menu {
+  display: block;
+}
+
+.note:hover .note-text {
+  opacity: 0.8;
+}
+
+.env-group .three-dot-menu {
+  display: none;
+}
+
+.env-group:hover .three-dot-menu {
+  display: block;
+}
+
+.env-group:hover .env-group-text {
+  opacity: 0.8;
+}
