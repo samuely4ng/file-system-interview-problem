@@ -8,8 +8,8 @@ export interface File {
   path: string;
   size: number;
   isOpen?: boolean;
-  children?: string[];
-  parent?: string;
+  children: string[];
+  parent: string;
 }
 
 // files is a map of path to File objects
@@ -84,6 +84,7 @@ export const selectRootFiles = createSelector(
 // this function should update the files that is passed in
 
 const processFolder = async (path: string, files: Record<string, File>) => {
+  // listFiles is an API which will list all the direct children files in a particular path
   const children = await listFiles(path);
 
   // TO-DO:
@@ -94,7 +95,7 @@ const processFolder = async (path: string, files: Record<string, File>) => {
 export const loadFiles =
   (startPath: string = "") =>
   async (dispatch: Dispatch, getState: GetState) => {
-    // THE CURRENT FILES (you may need to use this)
+    // THE CURRENT FILES IN THE STATE
     const currFiles = { ...(getState().code.files || {}) };
 
     try {
