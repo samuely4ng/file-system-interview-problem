@@ -8,8 +8,8 @@ export interface File {
   path: string;
   size: number;
   isOpen?: boolean;
-  children: string[];
-  parent: string;
+  children: string[]; // should be a list of child paths (if is_dir is true)
+  parent: string; // should be the parent path of this particular file
 }
 
 // files is a map of path to File objects
