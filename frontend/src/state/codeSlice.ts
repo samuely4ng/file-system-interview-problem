@@ -79,12 +79,12 @@ export const selectRootFiles = createSelector(
   (files) => Object.values(files).filter((file: File) => !file.parent),
 );
 
-// HINT: You may want to implement & use this function in the loadFiles function
-const processFolder = async (
-  path: string,
-  files: Record<string, File>,
-  loadMore: boolean = true,
-) => {
+// TO-DO (PROBLEM #1)
+// LOAD THE FILES AND FOLDERS INTO THE REDUX STORE
+// in the format described in the File interface above
+// this function should update the files that is passed in
+
+const processFolder = async (path: string, files: Record<string, File>) => {
   const children = await listFiles(path);
 
   // TO-DO:
@@ -93,18 +93,17 @@ const processFolder = async (
 
 // loads the files in a particular path into redux
 export const loadFiles =
-  (startPath: string = "", loadMore: boolean = true) =>
+  (startPath: string = "") =>
   async (dispatch: Dispatch, getState: GetState) => {
     // THE CURRENT FILES (you may need to use this)
     const currFiles = { ...(getState().code.files || {}) };
 
     try {
-      // TO-DO (PROBLEM #1)
-      // LOAD THE FILES AND FOLDERS INTO THE REDUX STORE
-      // Use the listFiles function from the fileService to get the files and folders
-      // And then transform the data into the format
-      // described in the File interface above
-      // You may want to implement & use the processFolder function
+      // update currFiles with the file data loaded from the API
+      await processFolder(startPath, currFiles);
+
+      // update the redux store with the new version of currFiles
+      dispatch(setFiles(currFiles));
     } catch (error) {
       // Handle error
       console.error("Failed to load files and folders", error);
