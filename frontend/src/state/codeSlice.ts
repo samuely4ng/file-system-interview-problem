@@ -1,7 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { Dispatch } from "redux";
 import { listFiles } from "#/services/fileService";
-import { GetState } from "./store";
+import { GetState, Dispatch } from "./store";
 
 export interface File {
   is_dir: boolean;
